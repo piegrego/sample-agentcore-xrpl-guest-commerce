@@ -1,0 +1,22 @@
+{
+  "app": "bun run infra/cdk/bin/agentcore-xrpl-payments.ts",
+  "context": {
+    "environment": "demo",
+    "authMode": "iam",
+    "enablePayments": "false",
+    "paymentBackend": "sandbox",
+    "paymentAsset": "USDC",
+    "paymentMaxAmount": "2",
+    "paymentSessionLimit": "2",
+    "usdcNetwork": "eip155:84532",
+    "usdcAsset": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+    "usdcPayTo": "",
+    "xrplNetwork": "xrpl:1",
+    "xrplHttpUrl": "",
+    "xrplMaxFeeDrops": "2000",
+    "xrplReconciliationIntervalSeconds": 30,
+    "allowedCidr": "0.0.0.0/0",
+    "allowedIpv6Cidrs": [],
+    "modelId": "amazon.nova-lite-v1:0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@agentcore-xrpl-demo/x402-payments",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT-0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "peerDependencies": {
+    "@aws-sdk/client-bedrock-agentcore": "^3.1148.0",
+    "@x402/core": "2.28.0"
+  }
+}

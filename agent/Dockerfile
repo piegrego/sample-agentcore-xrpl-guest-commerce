@@ -1,0 +1,28 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
+FROM oven/bun:1.4.4-alpine@sha256:4cf82f5686b196504fe119db3fcd9185b191f82ece82c40680e597228ec6070a AS dependencies
+
+WORKDIR /app
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile --production
+
+FROM oven/bun:1.4.4-alpine@sha256:4cf82f5686b196504fe119db3fcd9185b191f82ece82c40680e597228ec6070a AS release
+
+WORKDIR /app
+RUN apk upgrade --no-cache
+ENV NODE_ENV=production
+ENV PORT=8080
+
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY agent/src ./agent/src
+COPY shared ./shared
+COPY packages ./packages
+
+USER bun
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD ["bun", "-e", "const response = await fetch('http://127.0.0.1:8080/ping'); process.exit(response.ok ? 0 : 1)"]
+
+CMD ["bun", "run", "agent/src/index.ts"]
